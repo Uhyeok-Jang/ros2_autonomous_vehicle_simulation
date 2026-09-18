@@ -52,27 +52,27 @@ def generate_launch_description():
         ),
 
         Node(
-	    package='camera_perception_pkg',
-	    executable='yolov8_node',
-	    output='screen',
-	    parameters=[{
-		'model': LaunchConfiguration('yolo_model'),
-		'device': LaunchConfiguration('yolo_device'),
-		'threshold': 0.4,
-	    }],
-	    remappings=[
-		('image_raw', '/camera/image_raw'),
-	    ]
-	),
-		
+            package='camera_perception_pkg',
+            executable='yolov8_node',
+            output='screen',
+            parameters=[{
+                'model': LaunchConfiguration('yolo_model'),
+                'device': LaunchConfiguration('yolo_device'),
+                'threshold': 0.4,
+            }],
+            remappings=[
+                ('image_raw', '/camera/image_raw'),
+            ]
+        ),
+
         Node(
-	    package='debug_pkg',
-	    executable='yolov8_visualizer_node',
-	    output='screen',
-	    remappings=[
-		('image_raw', '/camera/image_raw'),
-	    ]
-	),
+            package='debug_pkg',
+            executable='yolov8_visualizer_node',
+            output='screen',
+            remappings=[
+                ('image_raw', '/camera/image_raw'),
+            ]
+        ),
 
         Node(
             package='debug_pkg',
@@ -86,13 +86,13 @@ def generate_launch_description():
             output='screen'
         ),
         Node(
-	    package='camera_perception_pkg',
-	    executable='traffic_light_detector_node',
-	    output='screen',
-	    parameters=[{
-		'sub_image_topic': '/camera/image_raw',
-	    }]
-	),
+            package='camera_perception_pkg',
+            executable='traffic_light_detector_node',
+            output='screen',
+            parameters=[{
+                'sub_image_topic': '/camera/image_raw',
+            }]
+        ),
 
         Node(
             package='decision_making_pkg', 
