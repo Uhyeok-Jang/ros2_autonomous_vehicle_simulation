@@ -83,7 +83,12 @@ def generate_launch_description():
         Node(
             package='camera_perception_pkg', 
             executable='lane_info_extractor_node',
-            output='screen'
+            output='screen',
+            parameters=[{
+                # 카메라 보정 뒤에도 인식 범위는 유지하면서, 곡선에서는
+                # 차선 중앙보다 아웃코스 쪽에 목표 경로를 만든다.
+                'outside_bias_ratio': 0.05,
+            }]
         ),
         Node(
             package='camera_perception_pkg',
@@ -103,7 +108,12 @@ def generate_launch_description():
         Node(
             package='decision_making_pkg', 
             executable='motion_planner_node',
-            output='screen'
+            output='screen',
+            parameters=[{
+                # 먼 경로점은 그대로 사용하되 코너 조향은 조금 늦고 약하게 시작한다.
+                'steering_delay_sec': 0.2,
+                'kp_heading': 0.055,
+            }]
         ),
        
         Node(
