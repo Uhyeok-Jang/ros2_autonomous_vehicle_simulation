@@ -58,7 +58,7 @@ def generate_launch_description():
             parameters=[{
                 'model': LaunchConfiguration('yolo_model'),
                 'device': LaunchConfiguration('yolo_device'),
-                'threshold': 0.4,
+                'threshold': 0.3,
             }],
             remappings=[
                 ('image_raw', '/camera/image_raw'),
