@@ -16,7 +16,7 @@ def generate_launch_description():
     package_dir=get_package_share_directory('simulation_pkg')
     world_file = os.path.join(package_dir, 'worlds', 'track.world')
     default_yolo_model = os.path.expanduser(
-        '~/yolo/runs/segment/lane_v2_hard_aug/weights/best.pt'
+        '~/yolo/models/lane_segmentation/best.pt'
     )
         
     return LaunchDescription([
