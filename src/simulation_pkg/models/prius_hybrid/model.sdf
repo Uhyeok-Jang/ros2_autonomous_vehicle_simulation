@@ -1402,7 +1402,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <mass>1</mass>
       </inertial>
-      <pose>-0.00031 0.318688 2.04993 0 0.1 -1.57</pose>
+      <pose>-0.00031 0.2 2.0 0 0.1 -1.57</pose>
       <sensor name='camera' type='camera'>
         <always_on>1</always_on>
         <visualize>1</visualize>

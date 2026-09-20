@@ -1,3 +1,5 @@
+import math
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
@@ -29,17 +31,30 @@ class SendSignal():
     pass
   
   def map_to_steer(self, input_value):
+    """Map integer steering command to a progressive wheel angle.
 
-    max_steer = 0.6458  # 바퀴 최대 회전 각도 (rad)
-    max_steering_angle = 7.85  # 핸들 최대 회전 각도 (deg)
-    input_min = -7
-    input_max = 7
+    MotionCommand.steering is int32 in the course interface, so a linear
+    -7..7 mapping makes the smallest non-zero command already about 0.092 rad
+    (5.3 deg) when max_steer=0.6458 rad. That is too coarse around center and
+    causes abrupt turn-in/corner cutting. A quadratic response keeps the same
+    maximum steering angle while giving much finer low-angle control.
+    """
+    max_steer = 0.6458  # 최대 바퀴 조향각 (rad)
+    input_min = -7.0
+    input_max = 7.0
 
-    # 입력 범위를 기준으로 비율을 계산 (-1.0 ~ 1.0 범위로 변환)
-    normalized_value = (input_value - input_min) / (input_max - input_min) * 2 - 1
+    clipped = max(input_min, min(input_max, float(input_value)))
+    normalized = clipped / input_max  # -1.0 ~ 1.0
 
-    wheel_angle = normalized_value * max_steer
-    steering_wheel_angle = normalized_value * max_steering_angle
+    # Progressive response:
+    # command 1 -> ~0.013 rad (0.76 deg)
+    # command 2 -> ~0.053 rad (3.0 deg)
+    # command 3 -> ~0.119 rad (6.8 deg)
+    # command 7 ->  0.646 rad (37.0 deg)
+    wheel_angle = math.copysign(
+        max_steer * (abs(normalized) ** 2),
+        normalized
+    ) if normalized != 0.0 else 0.0
 
     return wheel_angle
   
