@@ -87,7 +87,7 @@ def generate_launch_description():
             parameters=[{
                 # stop_zone이 lane2를 가린 구간은 보이는 lane2 진행 방향으로
                 # 연장한다. stop_zone 자체를 차선 장애물처럼 피하지 않는다.
-                'stop_zone_boundary_exclusion_px': 10,
+                'stop_zone_boundary_exclusion_px': 0,
                 'stop_zone_dashed_margin_px': 4,
                 'stop_zone_bridge_history_weight': 0.35,
                 'stop_zone_bridge_max_slope': 0.35,
@@ -120,6 +120,12 @@ def generate_launch_description():
                 'stop_zone_speed': 120,
                 'stop_zone_speed_hold_sec': 1.2,
                 'speed_recovery_step': 10,
+                # 짧은 직선이 낀 연속 코너에서는 진입 지연을 다시 걸지 않고,
+                # 급커브와 stop_zone에서는 강제 직진 구간을 만들지 않는다.
+                'steering_delay_rearm_sec': 0.6,
+                'steering_delay_bypass_heading_deg': 18.0,
+                'steering_delay_bypass_lateral_px': 48.0,
+                'stop_zone_bypass_steering_delay': True,
             }]
         ),
        
