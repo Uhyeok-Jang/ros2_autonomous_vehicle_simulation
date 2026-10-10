@@ -1,0 +1,68 @@
+{
+  "created_at": "2026-10-10T01:16:20.734294+09:00",
+  "promotion_method": "explicit_user_request",
+  "config": "configs/train_tagged24_45_e150.yaml",
+  "training_run": "/home/autolab/yolo/runs/segment/tagged24_45_yolov8n_seg_e150_overlap",
+  "source_best": "/home/autolab/yolo/runs/segment/tagged24_45_yolov8n_seg_e150_overlap/weights/best.pt",
+  "promoted_model": "models/lane_segmentation/best.pt",
+  "selected_epoch": 93,
+  "epochs_completed": 118,
+  "overlap_mask": false,
+  "classes": [
+    "dashed_line",
+    "lane1",
+    "lane2",
+    "solid_line",
+    "stop_zone",
+    "traffic_light"
+  ],
+  "model_sha256": "8444c0351c789cc137d8f410f81c8383a4834b801a64d1746d8de55ff2b09643",
+  "selection_fitness": 1.714477,
+  "validation_metrics": {
+    "box_mAP50": 0.99101,
+    "box_mAP50_95": 0.93248,
+    "mask_mAP50": 0.97283,
+    "mask_mAP50_95": 0.75429
+  },
+  "test_metrics": {
+    "metrics/precision(B)": 0.9850777037117376,
+    "metrics/recall(B)": 0.9896461819811323,
+    "metrics/mAP50(B)": 0.9945396315137169,
+    "metrics/mAP50-95(B)": 0.9371844844714782,
+    "metrics/precision(M)": 0.9705701566238732,
+    "metrics/recall(M)": 0.9752089369490805,
+    "metrics/mAP50(M)": 0.9821349045019724,
+    "metrics/mAP50-95(M)": 0.7424111425543755,
+    "fitness": 1.709303517924837
+  },
+  "visual_inspection_report": "reports/tagged24_45_epoch93_visual_test.json",
+  "previous_model_sha256": "85ec3db21534dc2ec822e9b0724b7f0369d73e6d4c4b86c9fea0ed5fb258980c",
+  "previous_model_backup": "/home/autolab/yolo/runs/model_backups/20261010T011620_734294_KST",
+  "consumers": [
+    {
+      "launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
+      "resolved_launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
+      "sha256": "09bdd4b2966aeaf062f449e183aede5ad15e6b8eea9b9237c9554c7b0a346d28",
+      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+    },
+    {
+      "launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
+      "resolved_launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
+      "sha256": "cedc70d425622e9f0add9a00d02257aec385ec375cadce151f72c445b1b93b98",
+      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+    },
+    {
+      "launch": "/home/autolab/ros2_ws/install/camera_perception_pkg/share/camera_perception_pkg/launch/driving_real.launch.py",
+      "resolved_launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
+      "sha256": "09bdd4b2966aeaf062f449e183aede5ad15e6b8eea9b9237c9554c7b0a346d28",
+      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+    },
+    {
+      "launch": "/home/autolab/ros2_autonomous_vehicle_simulation/install/simulation_pkg/share/simulation_pkg/launch/driving_sim.launch.py",
+      "resolved_launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
+      "sha256": "cedc70d425622e9f0add9a00d02257aec385ec375cadce151f72c445b1b93b98",
+      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+    }
+  ],
+  "restart_required": "Existing YOLO nodes keep loaded weights until restarted."
+}

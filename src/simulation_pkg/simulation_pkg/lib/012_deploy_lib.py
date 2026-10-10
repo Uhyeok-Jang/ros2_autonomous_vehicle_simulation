@@ -1,6 +1,7 @@
 import os
 import types
 import marshal
+from pathlib import Path
 
 import random
 import numpy as np
@@ -30,10 +31,8 @@ def check_and_download_model(file, destination_path):
 HOME = os.path.expanduser("~")
     
 def get_base_path(extra_dirs=None, repeat_last=False):
-    # p = os.path.dirname(os.path.abspath(__file__)).split("/")
-    p = os.path.dirname(os.path.abspath(__name__)).split("/")
+    BASE_PATH = str(Path(__file__).resolve().parents[2])
     pkg = "simulation_pkg"
-    BASE_PATH = os.path.join("/", *p[1:4], "src", pkg)
 
     if repeat_last:
         BASE_PATH = os.path.join(BASE_PATH, pkg)

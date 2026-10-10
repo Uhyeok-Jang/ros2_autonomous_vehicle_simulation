@@ -294,8 +294,12 @@ class Yolov8VisualizerNode(LifecycleNode):
 def main():
     rclpy.init()
     node = Yolov8VisualizerNode()
-    node.trigger_configure()
-    node.trigger_activate()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        node.trigger_configure()
+        node.trigger_activate()
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.try_shutdown()

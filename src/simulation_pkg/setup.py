@@ -16,6 +16,8 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
+        (os.path.join('share', package_name, 'data'),
+         glob('simulation_pkg/data/*.pt') + glob('simulation_pkg/data/*.json')),
         (os.path.join('share', package_name,'worlds'), glob('worlds/*')),
         (os.path.join('share', package_name,'rviz'), glob('rviz/*')),
     ],
