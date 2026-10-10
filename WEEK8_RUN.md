@@ -16,6 +16,6 @@ The runner selects this workspace without the other workspace's overlay.
 
 The driving launch is `src/simulation_pkg/launch/driving_sim.launch.py`. The mission launch is `src/simulation_pkg/launch/mission_sim.launch.py` and uses the same motion settings. Gazebo camera input and the existing PWM/steering-to-simulator mapping remain in place.
 
-The model is committed at `src/simulation_pkg/simulation_pkg/data/sim.pt`, with metadata in `sim.json`. Building installs this file into the package share directory. Override it with `./run_driving_sim.sh yolo_model:=/absolute/path/to/model.pt`. Model SHA256: `8444c0351c789cc137d8f410f81c8383a4834b801a64d1746d8de55ff2b09643`.
+A copy of the current weights is stored at `model/best.pt` for distribution. The launch continues using `src/simulation_pkg/simulation_pkg/data/sim.pt`, with metadata in `sim.json`; the model path is unchanged. Building installs this file into the package share directory. Override it with `./run_driving_sim.sh yolo_model:=/absolute/path/to/model.pt`. Model SHA256: `8444c0351c789cc137d8f410f81c8383a4834b801a64d1746d8de55ff2b09643`.
 
 Validation: 32 behavior/image tests and both launches checked with the synchronized settings. Gazebo track driving was not run during the snapshot preparation.
