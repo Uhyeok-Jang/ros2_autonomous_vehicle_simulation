@@ -12,7 +12,7 @@ def generate_launch_description():
     
     package_dir=get_package_share_directory('simulation_pkg')
     world_file = os.path.join(package_dir, 'worlds', 'track.world')
-    default_yolo_model = os.path.join(package_dir, 'data', 'sim.pt')
+    default_yolo_model = os.path.expanduser('~/ros2_autonomous_vehicle_simulation/model/v3.2_finetuned_corner4_with_v3.pt')
         
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -86,7 +86,10 @@ def generate_launch_description():
         Node(
             package='camera_perception_pkg', 
             executable='lane_info_extractor_node',
-            output='screen'
+            output='screen',
+            parameters=[{
+                'lane_target_ratio': 0.6,  # 0.5=center, larger values move the target right
+            }]
         ),
         Node(
             package='camera_perception_pkg',
@@ -109,13 +112,13 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 # Match the current real-vehicle controller settings.
-                'driving_speed': 245,
-                'lane_loss_speed': 180,
+                'driving_speed': 255,
+                'lane_loss_speed': 220,
                 'lane_detection_timeout': 0.2,
                 'kp_heading': 0.09,
-                'steering_alpha': 1.0,
+                'steering_alpha': 0.4,
                 'max_steering_step': 4.0,
-                'timer': 0.1,
+                'timer': 0.05,
             }]
         ),
        

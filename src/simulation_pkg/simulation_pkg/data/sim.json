@@ -1,68 +1,77 @@
 {
-  "created_at": "2026-10-10T01:16:20.734294+09:00",
-  "promotion_method": "explicit_user_request",
-  "config": "configs/train_tagged24_45_e150.yaml",
-  "training_run": "/home/autolab/yolo/runs/segment/tagged24_45_yolov8n_seg_e150_overlap",
-  "source_best": "/home/autolab/yolo/runs/segment/tagged24_45_yolov8n_seg_e150_overlap/weights/best.pt",
-  "promoted_model": "models/lane_segmentation/best.pt",
-  "selected_epoch": 93,
-  "epochs_completed": 118,
-  "overlap_mask": false,
-  "classes": [
-    "dashed_line",
-    "lane1",
-    "lane2",
-    "solid_line",
-    "stop_zone",
-    "traffic_light"
-  ],
-  "model_sha256": "8444c0351c789cc137d8f410f81c8383a4834b801a64d1746d8de55ff2b09643",
-  "selection_fitness": 1.714477,
-  "validation_metrics": {
-    "box_mAP50": 0.99101,
-    "box_mAP50_95": 0.93248,
-    "mask_mAP50": 0.97283,
-    "mask_mAP50_95": 0.75429
+  "file": "/home/autolab/yolo/models/versioned/v3.2_finetuned_corner4_with_v3.pt",
+  "simulation_copy": "/home/autolab/ros2_autonomous_vehicle_simulation/model/v3.2_finetuned_corner4_with_v3.pt",
+  "source": "/home/autolab/yolo/runs/segment/v3_finetune_all_fp32_lr1e4_e50_20261015/weights/best.pt",
+  "sha256": "b34cb3d8e6633d873f982a73c12d46090c5260e145b780bc9383ad2e09067f86",
+  "selected_epoch": 29,
+  "epochs_completed": 50,
+  "precision": {
+    "checkpoint_dtype": "float32",
+    "floating_model_tensors": 351
   },
-  "test_metrics": {
-    "metrics/precision(B)": 0.9850777037117376,
-    "metrics/recall(B)": 0.9896461819811323,
-    "metrics/mAP50(B)": 0.9945396315137169,
-    "metrics/mAP50-95(B)": 0.9371844844714782,
-    "metrics/precision(M)": 0.9705701566238732,
-    "metrics/recall(M)": 0.9752089369490805,
-    "metrics/mAP50(M)": 0.9821349045019724,
-    "metrics/mAP50-95(M)": 0.7424111425543755,
-    "fitness": 1.709303517924837
-  },
-  "visual_inspection_report": "reports/tagged24_45_epoch93_visual_test.json",
-  "previous_model_sha256": "85ec3db21534dc2ec822e9b0724b7f0369d73e6d4c4b86c9fea0ed5fb258980c",
-  "previous_model_backup": "/home/autolab/yolo/runs/model_backups/20261010T011620_734294_KST",
-  "consumers": [
-    {
-      "launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
-      "resolved_launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
-      "sha256": "09bdd4b2966aeaf062f449e183aede5ad15e6b8eea9b9237c9554c7b0a346d28",
-      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+  "training_base": "v3_good_corner4_issue",
+  "sampling": "uniform full tagged55 dataset",
+  "learning_rate": 0.0001,
+  "validation_groups": {
+    "corner4": {
+      "images": 16,
+      "mask_map50_95": 0.5204154226197802,
+      "lane2_mask_precision": 0.9831239735277179,
+      "lane2_mask_recall": 1.0,
+      "lane2_mask_map50": 0.995,
+      "lane2_mask_map50_95": 0.9709948051948052
     },
-    {
-      "launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
-      "resolved_launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
-      "sha256": "cedc70d425622e9f0add9a00d02257aec385ec375cadce151f72c445b1b93b98",
-      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
-    },
-    {
-      "launch": "/home/autolab/ros2_ws/install/camera_perception_pkg/share/camera_perception_pkg/launch/driving_real.launch.py",
-      "resolved_launch": "/home/autolab/ros2_ws/src/camera_perception_pkg/launch/driving_real.launch.py",
-      "sha256": "09bdd4b2966aeaf062f449e183aede5ad15e6b8eea9b9237c9554c7b0a346d28",
-      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
-    },
-    {
-      "launch": "/home/autolab/ros2_autonomous_vehicle_simulation/install/simulation_pkg/share/simulation_pkg/launch/driving_sim.launch.py",
-      "resolved_launch": "/home/autolab/ros2_autonomous_vehicle_simulation/src/simulation_pkg/launch/driving_sim.launch.py",
-      "sha256": "cedc70d425622e9f0add9a00d02257aec385ec375cadce151f72c445b1b93b98",
-      "model": "/home/autolab/yolo/models/lane_segmentation/best.pt"
+    "other": {
+      "images": 116,
+      "mask_map50_95": 0.7125736549038896,
+      "lane2_mask_precision": 0.9828015195120842,
+      "lane2_mask_recall": 0.7279688624777283,
+      "lane2_mask_map50": 0.7993565629698159,
+      "lane2_mask_map50_95": 0.7355155697435453
     }
-  ],
-  "restart_required": "Existing YOLO nodes keep loaded weights until restarted."
+  },
+  "retains_both_baseline_groups": false,
+  "best_preserved_model": null,
+  "created_at": "2026-10-15T15:46:15.723257+09:00",
+  "test_report": "/home/autolab/yolo/reports/V3_2_FINETUNED_TEST_REPORT.md",
+  "test_metrics_json": "/home/autolab/yolo/reports/v3.2_finetuned_corner4_with_v3_test_gpu_metrics.json",
+  "test_metrics": {
+    "metrics/precision(B)": 0.9871854748815488,
+    "metrics/recall(B)": 0.9197428627977384,
+    "metrics/mAP50(B)": 0.9544505868395817,
+    "metrics/mAP50-95(B)": 0.905844114664267,
+    "metrics/precision(M)": 0.9737975124077628,
+    "metrics/recall(M)": 0.9040937641759155,
+    "metrics/mAP50(M)": 0.9217169868982711,
+    "metrics/mAP50-95(M)": 0.6890914955990662
+  },
+  "test_groups": {
+    "corner4": {
+      "images": 17,
+      "mask_map50_95": 0.6254333431632756,
+      "lane2_mask_precision": 0.983432246086744,
+      "lane2_mask_recall": 1.0,
+      "lane2_mask_map50": 0.995,
+      "lane2_mask_map50_95": 0.9415548235294118
+    },
+    "other": {
+      "images": 115,
+      "mask_map50_95": 0.692224518198986,
+      "lane2_mask_precision": 0.9912597720877928,
+      "lane2_mask_recall": 0.6266055915522817,
+      "lane2_mask_map50": 0.7080224851822137,
+      "lane2_mask_map50_95": 0.6279074620099573
+    }
+  },
+  "real_copy": "/home/autolab/ros2_ws/model/v3.2_finetuned_corner4_with_v3.pt",
+  "model_name": "v3.2_finetuned_corner4_with_v3",
+  "updated_at": "2026-10-15T16:04:06.752935+09:00",
+  "promotion_method": "explicit_user_request_real_sim_sync",
+  "previous_models_preserved": true,
+  "default_model_version": "v3.2",
+  "comparison_versions": [
+    "v3",
+    "v3.1",
+    "v3.2"
+  ]
 }

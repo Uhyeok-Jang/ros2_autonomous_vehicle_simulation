@@ -1,21 +1,17 @@
 # Week 8 lane-following snapshot
 
-This branch records the current lane2 controller and perception/target-path overlays. The controller waits for its first valid lane path, then preserves that path and reduces PWM during lane2 loss or stale perception. Red-light and obstacle stop conditions remain in the controller.
+The simulation driving stack is synchronized with the real vehicle's `fix/midterm` settings. See [MIDTERM_RUN.md](MIDTERM_RUN.md) for the current configuration and launch commands. Shared YOLO, lane extraction, target/path planning, motion planning and overlays match. RGB/BGR camera input is normalized to BGR; YOLO inference explicitly uses FP32. Missing lane2 updates the diagnostic ROI while preserving the last path.
 
-Current launch values: `driving_speed=245`, `lane_loss_speed=180`, `lane_detection_timeout=0.2`, `kp_heading=0.09`, `steering_alpha=1.0`, `max_steering_step=4.0`, `timer=0.1`. Edit the motion-planner parameters in the launch file for tuning.
+Launch values: `lane_target_ratio=0.6`, `driving_speed=255`, `lane_loss_speed=220`, `lane_detection_timeout=0.2`, `kp_heading=0.09`, `steering_alpha=0.4`, `max_steering_step=4.0`, `timer=0.05`. Detection thresholds: common=0.3, lane2=0.15. The controller waits for its first valid path, then immediately reduces PWM on a missing lane2 detection and retains the last path. The timeout applies to stale detection/path updates. Obstacle stopping is enabled; the red-light should_stop assignment is commented out. Stop transitions log their reason and duration.
 
-Build from the workspace root with ROS2 Humble and the required Python/ROS dependencies installed:
+Default model: `model/v3.2_finetuned_corner4_with_v3.pt`, SHA256 `b34cb3d8e6633d873f982a73c12d46090c5260e145b780bc9383ad2e09067f86`. Both repositories contain all three named models. The compatibility best.pt/sim.pt copies also match v3.2. Original v3/v3.1 files are preserved. See `MODEL_COMPARE_2026-10-16.md` for experiment commands.
 
 ```bash
-source /opt/ros/humble/setup.bash
-colcon build --symlink-install
-./run_driving_sim.sh
+./run_model_compare.sh v3
+./run_model_compare.sh v3.1
+./run_model_compare.sh v3.2
 ```
 
-The runner selects this workspace without the other workspace's overlay.
+Run one driving session at a time. The wrapper selects only model weights and forwards other launch arguments to `run_driving_sim.sh`. The runner isolates the selected workspace's overlay. Existing installed source links reflect these updates without rebuilding.
 
-The driving launch is `src/simulation_pkg/launch/driving_sim.launch.py`. The mission launch is `src/simulation_pkg/launch/mission_sim.launch.py` and uses the same motion settings. Gazebo camera input and the existing PWM/steering-to-simulator mapping remain in place.
-
-A copy of the current weights is stored at `model/best.pt` for distribution. The launch continues using `src/simulation_pkg/simulation_pkg/data/sim.pt`, with metadata in `sim.json`; the model path is unchanged. Building installs this file into the package share directory. Override it with `./run_driving_sim.sh yolo_model:=/absolute/path/to/model.pt`. Model SHA256: `8444c0351c789cc137d8f410f81c8383a4834b801a64d1746d8de55ff2b09643`.
-
-Validation: 32 behavior/image tests and both launches checked with the synchronized settings. Gazebo track driving was not run during the snapshot preparation.
+Gazebo camera input and simulator command adapter were preserved. Both driving_sim and mission_sim defaults use the synchronized controller values and v3.2 model.
